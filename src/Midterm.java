@@ -21,7 +21,7 @@ public class Midterm {
 			while(true) {
 				int i = (int)(Math.random()*26);
 				char c = (char)('a' + i); 
-				if(sb.charAt(1).isEmpty) { // (문제5) 선택한 문자가 공백이 아닐 경우의 조건절을 완성해 주세요.
+				if(sb.charAt( )equals("") ) { // (문제5) 선택한 문자가 공백이 아닐 경우의 조건절을 완성해 주세요.
 					sb.replace(index, index+1, Character.toString(c)); 
 					break; 
 				}

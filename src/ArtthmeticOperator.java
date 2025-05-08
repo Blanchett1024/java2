@@ -1,3 +1,4 @@
+/*
 import java.util.Scanner;
 public class ArtthmeticOperator {
     public static void main(String[] args) {
@@ -19,4 +20,5 @@ public class ArtthmeticOperator {
     
 }
 
-// 초단위의 정수를 입력받고 몇시간몇분몇초인지 출력하는 프로그램
+초단위의 정수를 입력받고 몇시간몇분몇초인지 출력하는 프로그램
+*/

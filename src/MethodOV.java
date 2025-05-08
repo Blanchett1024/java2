@@ -1,4 +1,4 @@
-//
+/* 
 class Shape{
     public void draw(){
         System.out.println("Shape");
@@ -38,4 +38,4 @@ public class MethodOV {
     }
     
 }
-//
+*/

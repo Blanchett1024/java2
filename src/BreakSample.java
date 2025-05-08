@@ -1,3 +1,4 @@
+/*
 import java.util.Scanner;
 public class BreakSample {
     public static void main(String[] args) {
@@ -14,3 +15,4 @@ public class BreakSample {
         scanner.close();
     }
 }
+*/

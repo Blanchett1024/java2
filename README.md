@@ -210,9 +210,24 @@ component.addKeyListener(myKeyListener);
 - 마우스 이벤트 : 사용자의 마우스 조작에 따라 발생하는 이벤트
     - mouse + Clicked/Released/Dragged 등등..
 
+ # 10장 스윙 컴포넌트 활용
+ ## 자바의 GUI 프로그래밍 방법
+ 자바의 GUI 프로그래밍 방법 2종류
+ - 컴포넌트 기반 GUI 프로그래밍
+    - 스윙 컴포넌트를 이용하여 쉽게 GUI 구축
+    - 자바에서 제공하는 컴포넌트의 한계를 벗어나지 못함
+- 그래픽을 이용하여 GUI구축
+    - 그래픽 기반 GUI 프로그래밍
+    - 개발자가 직접 그래픽으로 화면을 구성하는 부담
+    - 독특한 GUI를 구성할 수 있는 장점
+    - GUI 처리의 실행속도가 빨라 게임등에 주로 이용
 
-
-
+본 수업에서는 Swing 컴포넌트중 8개의 컴포넌트의 사용법에 관해 다룬다.
+- JLabel, JButton, JCheckBox, JRadioButton, JTextField, JTextArea, JList, JComboBox 
+## 스윙 컴포넌트의 공통메소드, JComponent의 메소드
+- JComponent
+    - 스윙 컴포넌트의 멤버를 모두 상속받는 슈퍼 클래스, 추상 클래스
+    - 스윙 컴포넌트들이 상속받는 공통메소드와 상수 구현
 
 # 김동현 202130101
 ## 5월 29 일 13주차

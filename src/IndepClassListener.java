@@ -23,9 +23,16 @@ class Ex91MyActionListener implements ActionListener{
     public void actionperformed(ActionEvent e){
         JButton b = (JButton)e.getSource();
         if(b.getText().equals("Action"))
-                b.setText("액션");
-            else
-                b.setText("Action");    
+            b.setText("액션");
+        else
+            b.setText("Action");    
        // setTitle(b.getText());
     }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'actionPerformed'");
+    }
 }
+

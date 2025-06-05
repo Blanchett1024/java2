@@ -1,4 +1,220 @@
 # 김동현 202130101
+## 6월 5일 14주차 
+<br>
+
+## 독립 클래스로 Action 이벤트 리스너 만들기
+~~~
+import java.awt.*;
+import.java.awt.event.*;
+import.javax.swing.*;
+
+public class IndepClassListener extends JFrame {
+    public IndepClassListneer(){
+        setTitle("Action 이벤트 리스너 예제");
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        Container c = getContentPane();
+        c.setLayout( new FlowLayout());
+        JButton btn = new JButton("Action");
+        btn.addActionListener(new ExMyActionListener());
+        c.add(btn);
+        setSize(width:250, height:120);
+        setVisible(true);
+    }
+    public static void main(String[] args){
+        new IndepClassListener();
+    }
+}
+//독립된 클래스로 이벤트 리스너를 작성한다
+class ExMyActionListener implements ActionListener{
+    public void actionperformed(ActionEvent e){
+        JButton b = (JButton)e.getSource();
+        if(b.getText().equals("Action"))
+                b.setText("액션");
+            else
+                b.setText("Action");    
+    }
+}
+~~~
+## 익명 클래스로 이벤트 리스너 작성
+- 익명 클래스(anonymous class) : 이름 없는 클래스
+    - (클래스 선언 + 인스턴스 선언)을 한번에 달성
+        ~~~
+        new 익명클래스의 슈퍼클래스이름(생성자인자들){
+            ........................
+            익명클래스의 멤버구현
+            ........................
+        }
+        ~~~
+    - 간단한 리스너의 경우 익명클래스 사용 추천
+        - 메소드 개수가 1,2,개인 리스너(ActionListener, ItemListener)에 대해 주로 사용
+- ActionListener를 구현하는 익명의 이벤트 리스너작성 예
+    - 이름을 가진 클래스를 작성하고 클래스 인스턴스를 생성하는 경우
+    ~~~
+    class MyActionListenr implements ActionListener {
+        public void actionPerformed(ActionEvent e){
+            ............
+        }
+    }
+
+    +
+    b.addActionListener(new MyActionListener());
+    ~~~
+    - 액션 리스너를 상속받고 바로 메소드 작성. 동시에 new로 인스턴스를 생성하는 경우
+    ~~~
+    b.addActionListener(new ActionListener(){
+        public void actionformed(ActionEvent e){
+         ..............
+        }
+    });
+    ~~~
+    
+## 마우스 이벤트 리스너 작성 연습 - 마우스로 문자열 이동시키기
+- 프레임의 임의의 위치에 마우스버튼을 누르면 마우스 포인터가 있는 위치에 "Hello"문자열을 출력하는 프로그램
+- 마우스 버튼을 누르면 마우스가 있는 위치로 "HeLLO"문자열을 이동시킨다
+- 이벤트와 리스너 : MouserListener
+- 이벤트 소스 : 컨텐트팬
+- 커넨트팬의 배치관리자 : 배치관리자 삭제 
+- 구현할 리스너의 메소드 : mousePressed()
+- "Hello" 문자열 : JLabel 컴포넌트 이용
+~~~
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
+
+
+
+public class Ex94MouseListener extends JFrame {
+    private JLabel la = new JLabel("Hello"); //Hello 레이블
+
+    public Ex94MouseListener(){
+        setTitle("Mouse 이벤트 예제");
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        Container c = getContentPane();
+        c.addMouseListener(new MyMouseListener());
+
+        c.setLayout(null);
+        la.setSize(50,29);
+        la.setLocation(39,30);
+        c.add(la);
+
+        setSize(200,200);
+        setVisible(true);
+    }
+    
+    class MyMouseListener implements MouseListener {
+        public void mousePressed(MouseEvent e){
+            int x = e.getX();
+            int y = e.getY();
+            la.setLocation(x,y);
+        }
+        public void mouseReleased(MouseEvent e){}
+        public void mouseClicked(MouseEvent e){}
+        public void mouseEntered(MouseEvent e){}
+        public void mouseExited(MouseEvent e){}
+    }
+    public static void main(String[] args) {
+        new Ex91MyActionListener();
+    }
+    
+}
+~~~
+## 어탭터 클래스
+- 이벤트 리스너 구현에 따른 부담
+    - 리스너의 추상 메소드를 모두 구현해야하는 부담
+    - 예 > 마우스 리스너에서 마우스가 눌러지는경우 (mouserPressed())만 처리하고자하는경우에도 나머지 4개 메소드를 모두 구현해야하는 부담
+- 어댑터 클래스(Adapter)
+    - 리스너의 모든 메소드를 단순 리턴하도록 만든 클래스(JDK에서 제공)
+    - mouseAdapter 예시
+        ~~~
+        class MouseAdapter implements MouseListener,MouseMotionListener,MouseWheelListener{
+            public void mousePressed (MouseEvent e){}
+            public void mouseReleased (MouseEvent e){}
+            public void mouseClicked (MouseEvent e){}
+            public void mouseEntered (MouseEvent e){}
+            public void mouseExited (MouseEvent e){}       
+            public void mouseDragged (MouseEvent e){}
+            public void mouseMoved (MouseEvent e){}
+            public void mouseWheelMoved (MouseEvent e){}
+
+        }
+        ~~~
+- 추상 메소드가 하나뿐인 리스너는 어댑터 없음
+    - ActionAdapter, ItemAdapter 클래스는 존재하지 않음음
+## key 이벤트와 포커스
+- 키 입력시, 다음 세경우 각각 key 이벤트 발생
+    - 키를 누른순간
+    - 누른 키를 뗸 순간
+    - 누른키를 뗴는 순간(Unicode키의 경우만)
+- 키 이벤트를 받을수 있는 조건
+    - 모든 컴포넌트
+    - 현재 포커스를 가진 컴포넌트가 키 이벤트 독점
+- 포커스
+    - 컴포넌트나 응용프로그램이 키 이벤트를 독점하는 궡ㄴ한
+    - 컴포넌트에 포커스 설정방법: 다음 2라인 코드 필요
+        ~~~
+        component.setFocusable(true); // 컴포넌트가 포커스를 받을수있도록 설정
+        component.requestFocus(); // 컴포넌트에 포커스 강제 지정정
+        ~~~
+- 자바 플랫폼마다 실행환경의 초기화가 서로 다를수있기떄문에 다음코드가 추가로 필요함
+    - component.setFocusable(true);
+
+## KeyListener
+- 응용 프로그램에서 KeyListener를 상속받아 키 리스너 구현
+- KeyListener의 3개 메소드
+- 컴포넌트에 키 이벤트 리스너 달기
+~~~
+component.addKeyListener(myKeyListener);
+~~~
+## 유니코드 키 
+- 유니코드 키의 특징
+    - 국제 산업 표준
+    - 전 세계의 문자를 컴퓨터에서 일관되게 표현하기위한 코드 체계
+    - 문자들에 대해서만 키 코드값 정의: A~Z, a~z, 0~9, !,@,& 등
+- 문자가 아닌 키 경우에는 표준화된 키 코드값 없음
+    - < Funtion > 키, < Home > 키,< Up > 키,< Delete >키 등은 플랫폼에따라 키 코드값이 다를수 있음
+- 유니코드 키가 입력되는 경우
+    - keyPressed(), keyTyped(), keyReleased()가 순서대로 호출
+- 유니코드 키가 아닌경우
+    - keyPressed(), keyReleased()만 호출됨
+
+## 가상 키와 입력된 키 판별
+- keyEvent 객체
+    - 입력된 키 정보를 가진 이벤트 객체
+    - KeyEvent 객체의 메소드로 입력된 키 판별
+- KeyEvent 객체의 메소드로 입력된 키 판별
+    - char KeyEvent.getKeyChar()
+    - 키의 유니코드 문자값 리턴
+    - 유니코드 문자 키인 경우에만 의미있음
+    - 입력된 키를 판별하기위해 문자 값과 비교하면됨
+    ~~~
+    public void keyPressed(KeyEvent e ){
+        if(e.getKeyChar()=='q')
+        System.exit(0);
+    }         // q 키가 눌리면 프로그램 종료료
+    ~~~
+- int KeyEvent.getKeyCode()
+    - 유니코드 ㅣ 포함
+    - 모든 키에대한 정수형 키 코드 리턴
+    - 입력된 키를 판별하기위해 카상키 값과 비교하여야함
+    - 가상키 값은 KeyEvent 클래스에 상수로 선언
+    ~~~
+    public void keyPressed(KeyEvent e){
+        if(e.getKeyCode()== KeyEvent.VK_F5)
+            System.exit(0);
+    }     //F5를 누르면 프로그램 종료료
+    ~~~
+
+가상키(Virtual Key)
+- 가상 키는 KeyEvent 클래스에 상수로 선언 <br>
+마우스 이벤트
+- 마우스 이벤트 : 사용자의 마우스 조작에 따라 발생하는 이벤트
+    - mouse + Clicked/Released/Dragged 등등..
+
+
+
+
+
+# 김동현 202130101
 ## 5월 29 일 13주차
 <br>
 
